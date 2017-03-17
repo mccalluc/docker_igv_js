@@ -10,8 +10,6 @@ RUN wget http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
 RUN wget http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css
 RUN wget http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js
 
-RUN wget http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css
-
 COPY index.html .
 
 VOLUME data

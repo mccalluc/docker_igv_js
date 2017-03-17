@@ -5,8 +5,13 @@ A Docker container to wrap IGV.js
 ## Development
 
 ```bash
-docker build --tag igv-js context
-docker run --detach --name igv-js-container --publish 8888:80 --volume data:/usr/share/nginx/html/data igv-js
-# Make sure data/options.js is in place,
-# and then visit http://localhost:8888/
+docker build --tag mccalluc/igv-js context
+docker run --detach \
+           --name igv-js-container \
+           --publish 8888:80 \
+           --volume `pwd`/data:/usr/share/nginx/html/data \
+           mccalluc/igv-js
+cp options-demo.js data/options.js
 ```
+
+Visit [http://localhost:8888/]
