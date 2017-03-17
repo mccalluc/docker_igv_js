@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+    <!-- TODO: Confirm that it makes sense to bake these into the image. -->
+    <link rel="stylesheet" type="text/css" href="jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="igv-1.0.7.css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
+    <script type="text/javascript" src="igv-1.0.7.js"></script>
+    <!-- TODO: Generate options.js to match the data provided. -->
+    <script type="text/javascript" src="data/options.js"></script>
+    <script>
+        igv.createBrowser($("body")[0], options);
+    </script>
+</body>
+</html>
