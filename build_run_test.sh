@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
+OWNER=mccalluc
 NAME=docker_igv_js
-docker build --tag $NAME context
+docker pull $OWNER/$NAME
+docker build --tag $NAME \
+             --cache-from $OWNER/$NAME \
+             context
 
 DATA_DIR=/tmp/docker_igv_js_`date +"%Y-%m-%d_%H-%M-%S"`
 cp -a data_fixture $DATA_DIR
