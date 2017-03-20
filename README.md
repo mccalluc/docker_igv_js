@@ -11,7 +11,7 @@ docker run --detach \
            --publish 8888:80 \
            --volume `pwd`/data:/usr/share/nginx/html/data \
            mccalluc/igv-js
-cp options-demo.js data/options.js
+cp options_demo.js data/options.js
 ```
 
 Visit [http://localhost:8888/]

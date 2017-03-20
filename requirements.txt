@@ -1,0 +1,3 @@
+# This requirements.txt is just for the unittests run outside the container.
+
+requests==2.12.3
