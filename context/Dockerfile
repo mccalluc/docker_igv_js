@@ -1,11 +1,10 @@
 FROM ubuntu:16.04
 
-# TODO: Combine to a single line
-RUN apt-get update
-RUN apt-get install -y python=2.7.11-1
-RUN apt-get install -y wget=1.17.1-1ubuntu1.1
-RUN apt-get install -y python-pip=8.1.1-2ubuntu0.4
-# TODO    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update  && \
+    apt-get install -y python=2.7.11-1 \
+                       wget=1.17.1-1ubuntu1.1 \
+                       python-pip=8.1.1-2ubuntu0.4 && \
+    rm -rf /var/lib/apt/lists/*
 
 # To figure out the version, I will install, and then use
 # `dpkg -l NAME` to get information about what was installed.
