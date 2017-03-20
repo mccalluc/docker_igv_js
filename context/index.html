@@ -5,18 +5,19 @@
     <title>IGV</title>
 </head>
 <body>
-    <!-- We're using a very small portion of the font, and it's not essential to functionality, so keep it external. -->
+    <!-- We're using a very small portion of the font, and it didn't work locally (?),
+         and it's not essential to functionality, so keep it external. -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <!-- TODO: Confirm that it makes sense to bake the rest of these into the image. -->
+    <!-- Without any of these, we're sunk, so baking it in is safer than relying on CDN. -->
     <link rel="stylesheet" type="text/css" href="jquery-ui.css"/>
     <link rel="stylesheet" type="text/css" href="igv-1.0.7.css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery-ui.min.js"></script>
     <script type="text/javascript" src="igv-1.0.7.js"></script>
-    <!-- TODO: Generate options.js to match the data provided. -->
-    <script type="text/javascript" src="data/options.js"></script>
     <script>
-        igv.createBrowser($("body")[0], options);
+        $.getJSON("data/options.json", function(options){
+            igv.createBrowser($("body")[0], options);
+        });
     </script>
 </body>
 </html>

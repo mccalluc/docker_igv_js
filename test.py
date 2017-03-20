@@ -30,9 +30,8 @@ class ContainerTest(unittest.TestCase):
         self.assertRegexpMatches(response.text, r'Hello World!')
 
     def test_generated_file(self):
-        response = requests.get('http://localhost:{PORT}/data/hello_world_generated.txt'.format(**os.environ))
+        response = requests.get('http://localhost:{PORT}/data/files.txt'.format(**os.environ))
         self.assertEqual(response.status_code, 200)
-        self.assertRegexpMatches(response.text, r'Hello')
         self.assertRegexpMatches(response.text, r'hello_world\.txt')
 
 
