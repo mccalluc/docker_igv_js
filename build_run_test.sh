@@ -9,4 +9,4 @@ docker run --detach \
            --volume `pwd`/data_fixture:/var/www/data \
            $NAME
 
-python test.py
+python test.py $NAME

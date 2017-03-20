@@ -3,12 +3,13 @@ import os
 import subprocess
 import time
 import requests
+import sys
 
 class ContainerTest(unittest.TestCase):
     def setUp(self):
         # self.suffix = os.environ['SUFFIX']
         # self.stamp = os.environ['STAMP']
-        command = "docker port docker_igv_js | perl -pne 's/.*://'".format(**os.environ)
+        command = "docker port {NAME} | perl -pne 's/.*://'".format(**os.environ)
         os.environ['PORT'] = subprocess.check_output(command, shell=True).strip().decode('utf-8')
         url='http://localhost:{PORT}/'.format(**os.environ)
         while True:
@@ -21,6 +22,8 @@ class ContainerTest(unittest.TestCase):
         self.assertEqual(1, 1)
 
 if __name__ == '__main__':
+    os.environ['NAME'] = sys.argv[1]
+
     suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     lines = [
