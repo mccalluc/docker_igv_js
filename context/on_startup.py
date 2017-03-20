@@ -7,7 +7,7 @@ import re
 def as_track(file):
     return {
         "name": re.sub(r'.*\/', '', file),
-        "url": file,
+        "url": 'data/' + file,
         "format": re.sub(r'.*\.', '', file)
         # TODO: indexURL if BAM
     }
@@ -23,7 +23,7 @@ def populate_data_directory():
     assembly = "hg19"
     url_base = "https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/{}/".format(assembly)
 
-    tracks = [as_track(f) for f in listdir('data')]
+    tracks = [as_track(f) for f in listdir('data') if f not in ["files.txt", "hello_world.txt"]]
     tracks.append({
         "name": "Genes",
         "type": "annotation",
@@ -40,7 +40,6 @@ def populate_data_directory():
         "cytobandURL": url_base + "cytoBand.txt",
     }
 
-    # TODO: Figure out the highest genome address and we'll set the window accordingly.
     options = {
         "reference": reference,
         "tracks": tracks
