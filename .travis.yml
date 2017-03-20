@@ -10,9 +10,10 @@ install:
   - wget https://apt.dockerproject.org/repo/pool/main/d/docker-engine/$DEB
   - sudo dpkg -i $DEB
   - sudo docker --version
+  - sudo pip install -r requirements.txt
 
 script:
-  - build_run_test.sh
+  - sudo ./build_run_test.sh
 
 after_success:
   - REPO=mccalluc/docker_igv_js

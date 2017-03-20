@@ -1,6 +1,12 @@
-# Create any necessary files on in data/:
+from os import listdir
 
-# TODO
+# Create any necessary files in data/:
+
+files = ' '.join(listdir('data'))
+with open('data/hello_world_generated.txt', 'w') as file:
+    file.write('Hello '+ files)
+
+# TODO: config.json
 
 # Start a static file server:
 

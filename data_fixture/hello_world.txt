@@ -1,0 +1,3 @@
+The tests look for this file to confirm that the data directory can be mounted.
+
+Hello World!

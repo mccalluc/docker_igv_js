@@ -2,9 +2,13 @@ FROM ubuntu:16.04
 
 # TODO: Combine to a single line
 RUN apt-get update
-RUN apt-get install -y python
-RUN apt-get install -y wget
+RUN apt-get install -y python=2.7.11-1
+RUN apt-get install -y wget=1.17.1-1ubuntu1.1
+RUN apt-get install -y python-pip=8.1.1-2ubuntu0.4
 # TODO    && rm -rf /var/lib/apt/lists/*
+
+# To figure out the version, I will install, and then use
+# `dpkg -l NAME` to get information about what was installed.
 
 WORKDIR /var/www
 # TODO
@@ -19,8 +23,9 @@ RUN wget http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
 RUN wget http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css
 RUN wget http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js
 
-COPY *.html ./
-COPY *.py ./
+COPY . .
+# TODO: Files which will not be served do not belong here.
+RUN pip install -r requirements.txt
 
 VOLUME data
 
