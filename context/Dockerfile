@@ -19,8 +19,9 @@ RUN wget http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
 RUN wget http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css
 RUN wget http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js
 
-COPY *.html ./
-COPY *.py ./
+COPY . .
+# TODO: Files which will not be served do not belong here.
+RUN pip install -r requirements.txt
 
 VOLUME data
 

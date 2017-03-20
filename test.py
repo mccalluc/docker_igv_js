@@ -19,7 +19,9 @@ class ContainerTest(unittest.TestCase):
             time.sleep(1)
 
     def test_server_up(self):
-        self.assertEqual(1, 1)
+        response = requests.get('http://localhost:{PORT}'.format(**os.environ))
+        self.assertEqual(response.status_code, 200)
+        self.assertRegexpMatches(response.text, r'>IGV<')
 
 if __name__ == '__main__':
     os.environ['NAME'] = sys.argv[1]

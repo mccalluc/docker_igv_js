@@ -10,6 +10,7 @@ install:
   - wget https://apt.dockerproject.org/repo/pool/main/d/docker-engine/$DEB
   - sudo dpkg -i $DEB
   - sudo docker --version
+  - pip install -r requests.txt
 
 script:
   - sudo ./build_run_test.sh
