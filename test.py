@@ -12,16 +12,29 @@ class ContainerTest(unittest.TestCase):
         command = "docker port {NAME} | perl -pne 's/.*://'".format(**os.environ)
         os.environ['PORT'] = subprocess.check_output(command, shell=True).strip().decode('utf-8')
         url='http://localhost:{PORT}/'.format(**os.environ)
-        while True:
+        for i in xrange(5):
             if 0 == subprocess.call('curl --fail --silent '+url+' > /dev/null', shell=True):
-                break
-            print('still waiting for server...')
+                return
+            print('Still waiting for server...')
             time.sleep(1)
+        self.fail('Server never came up')
 
-    def test_server_up(self):
+    def test_home_page(self):
         response = requests.get('http://localhost:{PORT}'.format(**os.environ))
         self.assertEqual(response.status_code, 200)
         self.assertRegexpMatches(response.text, r'>IGV<')
+
+    def test_data_directory(self):
+        response = requests.get('http://localhost:{PORT}/data/hello_world.txt'.format(**os.environ))
+        self.assertEqual(response.status_code, 200)
+        self.assertRegexpMatches(response.text, r'Hello World!')
+
+    def test_generated_file(self):
+        response = requests.get('http://localhost:{PORT}/data/hello_world_generated.txt'.format(**os.environ))
+        self.assertEqual(response.status_code, 200)
+        self.assertRegexpMatches(response.text, r'Hello')
+        self.assertRegexpMatches(response.text, r'hello_world\.txt')
+
 
 if __name__ == '__main__':
     os.environ['NAME'] = sys.argv[1]
