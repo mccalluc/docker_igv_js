@@ -12,7 +12,7 @@ install:
   - sudo docker --version
 
 script:
-  - build_run_test.sh
+  - ./build_run_test.sh
 
 after_success:
   - REPO=mccalluc/docker_igv_js
