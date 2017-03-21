@@ -10,12 +10,14 @@ RUN pip install -r requirements.txt
 #RUN chown www:www .
 #USER www
 
-RUN python -m wget http://igv.org/web/release/1.0.7/igv-1.0.7.js
-RUN python -m wget http://igv.org/web/release/1.0.7/igv-1.0.7.css
+ENV IGV_BASE=http://igv.org/web/release/1.0.7/igv-1.0.7
+RUN python -m wget $IGV_BASE.js
+RUN python -m wget $IGV_BASE.css
 
-RUN python -m wget http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
-RUN python -m wget http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css
-RUN python -m wget http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js
+ENV CDN_BASE=http://ajax.googleapis.com/ajax/libs
+RUN python -m wget $CDN_BASE/jquery/1.11.1/jquery.min.js
+RUN python -m wget $CDN_BASE/jqueryui/1.11.2/themes/smoothness/jquery-ui.css
+RUN python -m wget $CDN_BASE/jqueryui/1.11.2/jquery-ui.min.js
 
 VOLUME data
 
