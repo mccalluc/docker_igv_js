@@ -20,4 +20,10 @@ pip install -r requirements.txt
 
 After the tests run the container is left up, and the port it's running on will printed.
 
-Successful Github tags and PRs will prompt Travis to push the built image to Dockerhub.
+## Release
+
+Successful Github tags and PRs will prompt Travis to push the built image to Dockerhub. For a new version number:
+
+```
+git tag v0.0.x && git push origin --tags
+```
