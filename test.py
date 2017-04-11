@@ -29,12 +29,6 @@ class ContainerTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertRegexpMatches(response.text, r'Hello World!')
 
-    def test_generated_file(self):
-        response = requests.get('http://localhost:{PORT}/data/files.txt'.format(**os.environ))
-        self.assertEqual(response.status_code, 200)
-        self.assertRegexpMatches(response.text, r'hello_world\.txt')
-
-
 if __name__ == '__main__':
     os.environ['NAME'] = sys.argv[1]
 
