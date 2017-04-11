@@ -25,9 +25,10 @@ class ContainerTest(unittest.TestCase):
         self.assertRegexpMatches(response.text, r'>IGV<')
 
     def test_data_directory(self):
-        response = requests.get('http://localhost:{PORT}/data/hello_world.txt'.format(**os.environ))
+        response = requests.get(
+            'http://localhost:{PORT}/data/input.json'.format(**os.environ)
+        )
         self.assertEqual(response.status_code, 200)
-        self.assertRegexpMatches(response.text, r'Hello World!')
 
 if __name__ == '__main__':
     os.environ['NAME'] = sys.argv[1]
