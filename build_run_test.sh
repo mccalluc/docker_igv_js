@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-OWNER=mccalluc
+OWNER=gehlenborglab
 NAME=docker_igv_js
 docker pull $OWNER/$NAME
 docker build --tag $NAME \
