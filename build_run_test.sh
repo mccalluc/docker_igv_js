@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-OWNER=mccalluc
-NAME=docker_igv_js
-docker pull $OWNER/$NAME
+source define_repo.sh
+
+docker pull $REPO
 docker build --tag $NAME \
-             --cache-from $OWNER/$NAME \
+             --cache-from $REPO \
              context
 
 DATA_DIR=/tmp/docker_igv_js_`date +"%Y-%m-%d_%H-%M-%S"`
