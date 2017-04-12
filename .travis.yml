@@ -13,7 +13,8 @@ install:
   - sudo pip install -r requirements.txt
 
 script:
-  - source ./build_run_test.sh
+  - source define_repo.sh
+  - sudo ./build_run_test.sh
 
 after_success:
   - IMAGE=`sudo docker ps --latest --format '{{ .Image }}'` # TODO: with more containers, can't rely on ordering
