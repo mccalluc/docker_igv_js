@@ -1,4 +1,4 @@
-# docker_igv_js
+# docker_igv_js [![Build Status](https://travis-ci.org/refinery-platform/docker_igv_js.svg?branch=master)](https://travis-ci.org/refinery-platform/docker_igv_js)
 
 A Docker container to wrap IGV.js
 
