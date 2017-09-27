@@ -16,9 +16,9 @@ def populate_igv_configuration():
         tracks.append(
             {
                 "name": "{} - {}".format(
-                    node_data["node_solr_info"]["name"],
                     node_data["node_solr_info"][
-                        "organism_Characteristics_generic_s"]
+                        "organism_Characteristics_generic_s"],
+                    node_data["node_solr_info"]["name"]
                 ),
                 "url":  node_data["file_url"]
             }
