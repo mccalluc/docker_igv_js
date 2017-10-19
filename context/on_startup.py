@@ -16,10 +16,7 @@ def populate_igv_configuration():
     for url in config_data["file_relationships"]:
         tracks.append({
             "name": url.split("/")[-1],
-            "sourceType": "file",
             "url":  url,
-            # "indexURL": url_base + "refGene.bed.tbi",
-            "visibilityWindow": 300000000
         })
     reference = {
         "fastaURL": url_base + assembly + ".fa",
@@ -34,6 +31,7 @@ def populate_igv_configuration():
 
     with open('data/options.json', 'w') as options_file:
         options_file.write(json.dumps(options))
+
 
 def start_server():
     Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
