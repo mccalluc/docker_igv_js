@@ -1,10 +1,10 @@
 {
   "file_relationships": [
-    "/test_data/sample.seg"
+    "/data_fixtures/sample.seg"
   ],
   "node_info": {
     "abe390ad-94ac-4883-bd04-4715ec5469cc": {
-      "file_url": "/test_data/sample.seg",
+      "file_url": "/data_fixtures/sample.seg",
       "node_solr_info": {
         "cell_type_Characteristics_720_361_s": "Hematopoietic stem cell (HSC)",
         "development_stage_Characteristics_720_361_s": "Adult",
