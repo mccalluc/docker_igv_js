@@ -38,7 +38,7 @@ if __name__ == '__main__':
     print(
         (
             'browse:   http://localhost:{PORT}/\n'
-            'clean up: docker ps -qa | xargs docker stop | xargs docker rm'
+            'clean up: docker stop docker_igv_js | xargs docker rm'
         ).format(**os.environ)
     )
     if result.wasSuccessful():
