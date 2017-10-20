@@ -12,12 +12,17 @@ def populate_igv_configuration():
     url_base = "https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/{}/".format(
         assembly
     )
-
-    for url in config_data["file_relationships"]:
-        tracks.append({
-            "name": url.split("/")[-1],
-            "url":  url,
-        })
+    for node_data in config_data["node_info"].values():
+        tracks.append(
+            {
+                "name": "{} - {}".format(
+                    node_data["node_solr_info"][
+                        "filename_Characteristics_generic_s"],
+                    node_data["node_solr_info"]["name"]
+                ),
+                "url":  node_data["file_url"]
+            }
+        )
     reference = {
         "fastaURL": url_base + assembly + ".fa",
         "indexURL": url_base + assembly + ".fa.fai",
