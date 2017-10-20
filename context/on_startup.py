@@ -1,6 +1,8 @@
 import json
+import requests
 import SimpleHTTPServer
 import SocketServer
+from cgi import escape
 
 
 def populate_igv_configuration():
@@ -29,13 +31,37 @@ def populate_igv_configuration():
         "cytobandURL": url_base + "cytoBand.txt",
     }
 
-    options = {
-        "reference": reference,
-        "tracks": tracks
-    }
+    errors = url_errors(reference.values())
 
-    with open('data/options.json', 'w') as options_file:
-        options_file.write(json.dumps(options))
+    if errors:
+        html = '<html><body><pre>{}</pre></body></html>'.format(
+            escape('\n'.join(errors))
+        )
+        with open('index.html', 'w') as index_file:
+            index_file.write(html)
+    else:
+        options = {
+            "reference": reference,
+            "tracks": tracks
+        }
+        with open('data/options.json', 'w') as options_file:
+            options_file.write(json.dumps(options))
+
+
+def url_errors(urls):
+    url_status = {}
+    for url in urls:
+        try:
+            # byte-range so we don't download the file; S3 does not support HEAD.
+            status = requests.get(url, headers={'Range': 'bytes=0-0'}).status_code
+        except requests.exceptions.RequestException, e:
+            status = e.message
+        url_status[url] = status
+    return [
+        'Unexpected {} from {}'.format(status, url)
+        for url, status in url_status.iteritems()
+        if status != 206  # If byte-ranges are handled, should be 206, not 200.
+    ]
 
 
 def start_server():

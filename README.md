@@ -18,7 +18,7 @@ pip install -r requirements.txt
 ./build_run_test.sh
 ```
 
-After the tests run the container is left up, and the port it's running on will be printed.
+After the tests run the container is left up, with the local url where it can be accessed.
 
 ## Release
 
