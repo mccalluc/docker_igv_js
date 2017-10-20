@@ -8,7 +8,7 @@ def populate_igv_configuration():
         config_data = json.loads(f.read())
 
     tracks = []
-    assembly = "hg19"
+    assembly = config_data['parameters']['assembly']
     url_base = "https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/{}/".format(
         assembly
     )

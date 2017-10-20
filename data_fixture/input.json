@@ -52,5 +52,7 @@
       }
     }
   },
-  "parameters": []
+  "parameters": {
+    "assembly": "hg19"
+  }
 }
