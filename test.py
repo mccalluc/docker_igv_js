@@ -35,12 +35,12 @@ if __name__ == '__main__':
 
     suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
-    lines = [
-        'browse:   http://localhost:{PORT}/',
-        'clean up: docker ps -qa | xargs docker stop | xargs docker rm'
-    ]
-    for line in lines:
-        print(line.format(**os.environ))
+    print(
+        (
+            'browse:   http://localhost:{PORT}/\n'
+            'clean up: docker ps -qa | xargs docker stop | xargs docker rm'
+        ).format(**os.environ)
+    )
     if result.wasSuccessful():
         print('PASS!')
     else:
