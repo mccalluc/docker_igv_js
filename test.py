@@ -10,37 +10,35 @@ class ContainerTest(unittest.TestCase):
     def get_url(self, name):
         command = "docker port {} | perl -pne 's/.*://'".format(name)
         port = subprocess.check_output(command, shell=True).strip().decode('utf-8')
-        url = 'http://localhost:{}/'.format(port)
+        url = 'http://localhost:{}'.format(port)
         for i in xrange(5):
             if 0 == subprocess.call('curl --fail --silent ' + url + ' > /dev/null', shell=True):
+                print '{} -> {}'.format(name, url)
                 return url
             print('Still waiting for server...')
             time.sleep(1)
         self.fail('Server never came up: ' + name)
 
+    def assert_expected_response(self, name, expected, path='/'):
+        url = self.get_url(name)
+        response = requests.get(url + path)
+        self.assertEqual(200, response.status_code)  # TODO: Not ideal for error pages
+        self.assertIn(expected, response.text)
+
     # Good configuration:
 
     def test_good_home_page(self):
-        good_url = self.get_url('good')
-        response = requests.get(good_url)
-        self.assertEqual(200, response.status_code)
-        self.assertIn('>IGV<', response.text)
+        self.assert_expected_response('good', '>IGV<')
 
     def test_data_directory(self):
-        good_url = self.get_url('good')
-        response = requests.get(good_url + 'data/input.json')
-        self.assertEqual(200, response.status_code)
-        self.assertIn('{', response.text)
+        self.assert_expected_response('good', '{', '/data/input.json')
 
     # Bad configurations:
 
-    def test_missing_assembly_home_page(self):
-        missing_assembly_name = self.get_url('missing_assembly')
-        response = requests.get(missing_assembly_name)
-        self.assertEqual(200, response.status_code)  # Not ideal, but ok for now.
-        self.assertIn(
-            'Unexpected 404 from https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/hgFAKE/cytoBand.txt',
-            response.text
+    def test_missing_assembly(self):
+        self.assert_expected_response(
+            'missing_assembly',
+            'Unexpected 404 from https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/hgFAKE/cytoBand.txt'
         )
 
 
