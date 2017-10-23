@@ -1,0 +1,71 @@
+{
+  "file_relationships": [
+    "/data_fixtures/sample.seg"
+  ],
+  "node_info": {
+    "abe390ad-94ac-4883-bd04-4715ec5469cc": {
+      "file_url": "/data_fixtures/sample.seg",
+      "node_solr_info": {
+        "cell_type_Characteristics_720_361_s": "Hematopoietic stem cell (HSC)",
+        "development_stage_Characteristics_720_361_s": "Adult",
+        "organism_Characteristics_generic_s": "Mus musculus",
+        "notes_Characteristics_generic_s": "N/A",
+        "data_set_uuid": "735fc2a0-ef74-4642-a774-a4951c3be033",
+        "notes_Characteristics_720_361_s": "N/A",
+        "measurement_accession_Characteristics_generic_s": "http://purl.obolibrary.org/obo/OBI_0000424",
+        "REFINERY_DOWNLOAD_URL_s": "http://stemcellcommons.org/sites/default/files/xf_bioassay_files/040909%20DT%20MOUSE%20430%202.0%20Sample%20526.CEL",
+        "id": "data_set_manager.node.67827",
+        "REFINERY_NAME_720_361_s": "http://stemcellcommons.org/sites/default/files/xf_bioassay_files/040909%20DT%20MOUSE%20430%202.0%20Sample%20526.CEL",
+        "disease_state_Characteristics_720_361_s": "Acute Myelogenous Leukemia (AML)",
+        "gene_Characteristics_720_361_s": "20375",
+        "django_id": "67827",
+        "Material_Type_generic_s": "total RNA",
+        "uuid": "abe390ad-94ac-4883-bd04-4715ec5469cc",
+        "file_uuid": "41773830-2214-4290-9c20-a20f30dde546",
+        "disease_state_Characteristics_generic_s": "Acute Myelogenous Leukemia (AML)",
+        "REFINERY_TYPE_720_361_s": "Array Data File",
+        "assay_uuid": "9a507d71-aeb8-4166-9514-2da74c681e1d",
+        "Material_Type_720_361_s": "total RNA",
+        "study_uuid": "bbe3987d-bd62-47d8-b618-dd910b1b127f",
+        "type": "Array Data File",
+        "organism_part_Characteristics_720_361_s": "Bone marrow",
+        "technology_Characteristics_generic_s": "DNA microarray",
+        "measurement_Characteristics_generic_s": "transcription profiling",
+        "organism_Characteristics_720_361_s": "Mus musculus",
+        "filename_Characteristics_generic_s": "040909%20DT%20MOUSE%20430%202.0%20Sample%20526.CEL",
+        "organism_part_Characteristics_generic_s": "Bone marrow",
+        "technology_source_Characteristics_generic_s": "OBI",
+        "REFINERY_FILETYPE_720_361_s": "Affymetrix Probe Results File",
+        "django_ct": "data_set_manager.node",
+        "REFINERY_ANALYSIS_UUID_720_361_s": "N/A",
+        "cell_type_Characteristics_generic_s": "Hematopoietic stem cell (HSC)",
+        "name": "http://stemcellcommons.org/sites/default/files/xf_bioassay_files/040909%20DT%20MOUSE%20430%202.0%20Sample%20526.CEL",
+        "platform_Characteristics_generic_s": "Affymetrix Mouse Genome 430 2.0 Array",
+        "measurement_source_Characteristics_generic_s": "OBI",
+        "Label_720_361_s": "biotin",
+        "REFINERY_WORKFLOW_OUTPUT_720_361_s": "N/A",
+        "is_annotation": false,
+        "REFINERY_SUBANALYSIS_720_361_s": "-1",
+        "development_stage_Characteristics_generic_s": "Adult",
+        "gene_Characteristics_generic_s": "20375",
+        "Label_generic_s": "biotin"
+      }
+    }
+  },
+  "parameters": [
+    {
+      "name": "Genome Build",
+      "description": "Genome assembly identifier",
+      "value_type": "GENOME_BUILD",
+      "default_value": "hg19",
+      "value": "hg19"
+    },
+    {
+      "name": "Genome Build",
+      "description": "Genome assembly identifier",
+      "value_type": "GENOME_BUILD",
+      "default_value": "hg19",
+      "value": "hg19"
+    }
+  ]
+}

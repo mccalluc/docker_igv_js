@@ -9,14 +9,16 @@ docker build --tag $NAME \
              context
 
 DATA_DIR=/tmp/docker_igv_js_`date +"%Y-%m-%d_%H-%M-%S"`
-cp -a data_fixture $DATA_DIR
+cp -a input_fixtures $DATA_DIR
 # The on_startup script writes to the shared volume,
-# so we copy first to avoid contamination of the fixture.
+# so we copy first to avoid contamination of the fixture in source.
 
-docker run --detach \
-           --name $NAME \
-           --publish 80 \
-           --volume $DATA_DIR:/var/www/data \
-           $NAME
+for FIXTURE in `ls input_fixtures`; do
+    docker run --detach \
+               --name $FIXTURE \
+               --publish 80 \
+               --volume $DATA_DIR/$FIXTURE:/var/www/data \
+               $NAME
+done
 
-python test.py $NAME
+python test.py
