@@ -52,7 +52,13 @@
       }
     }
   },
-  "parameters": {
-    "assembly": "hgFAKE"
-  }
+  "parameters": [
+    {
+      "name": "Assembly",
+      "description": "Genome assembly identifier",
+      "value_type": "STRING",
+      "default_value": "hg19",
+      "value": "hgFAKE"
+    }
+  ]
 }

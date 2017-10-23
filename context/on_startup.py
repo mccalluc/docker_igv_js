@@ -10,7 +10,13 @@ def populate_igv_configuration():
         config_data = json.loads(f.read())
 
     tracks = []
-    assembly = config_data['parameters']['assembly']
+    assemblies = [
+        parameter['value'] for parameter in config_data['parameters']
+            if parameter['name'] == 'Assembly'
+    ]
+    assert len(assemblies) == 1
+    assembly = assemblies[0]
+
     url_base = "https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/{}/".format(
         assembly
     )
