@@ -5,7 +5,7 @@ import SocketServer
 from cgi import escape
 
 
-def populate_igv_configuration():
+def write_igv_configuration():
     with open("data/input.json") as f:
         config_data = json.loads(f.read())
 
@@ -37,24 +37,17 @@ def populate_igv_configuration():
         "cytobandURL": url_base + "cytoBand.txt",
     }
 
-    errors = url_errors(reference.values())
+    validate_urls(reference.values())
 
-    if errors:
-        html = '<html><body><pre>{}</pre></body></html>'.format(
-            escape('\n'.join(errors))
-        )
-        with open('index.html', 'w') as index_file:
-            index_file.write(html)
-    else:
-        options = {
-            "reference": reference,
-            "tracks": tracks
-        }
-        with open('data/options.json', 'w') as options_file:
-            options_file.write(json.dumps(options))
+    options = {
+        "reference": reference,
+        "tracks": tracks
+    }
+    with open('data/options.json', 'w') as options_file:
+        options_file.write(json.dumps(options))
 
 
-def url_errors(urls):
+def validate_urls(urls):
     url_status = {}
     for url in urls:
         try:
@@ -63,11 +56,13 @@ def url_errors(urls):
         except requests.exceptions.RequestException, e:
             status = e.message
         url_status[url] = status
-    return [
+    messages = [
         'Unexpected {} from {}'.format(status, url)
         for url, status in url_status.iteritems()
         if status != 206  # If byte-ranges are handled, should be 206, not 200.
     ]
+    if messages:
+        raise StandardError('\n'.join(messages))
 
 
 def start_server():
@@ -76,5 +71,12 @@ def start_server():
 
 
 if __name__ == '__main__':
-    populate_igv_configuration()
+    try:
+        write_igv_configuration()
+    except StandardError, e:
+        html = '<html><body><pre>{}</pre></body></html>'.format(
+            escape(e.message)
+        )
+        with open('index.html', 'w') as index_file:
+            index_file.write(html)
     start_server()
