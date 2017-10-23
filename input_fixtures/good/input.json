@@ -58,7 +58,7 @@
       "description": "Genome assembly identifier",
       "value_type": "STRING",
       "default_value": "hg19",
-      "value": "hg19"
+      "value": "galGal5"
     }
   ]
 }
