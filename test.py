@@ -19,11 +19,20 @@ class ContainerTest(unittest.TestCase):
             time.sleep(1)
         self.fail('Server never came up: ' + name)
 
+    # Good configuration:
+
     def test_good_home_page(self):
         good_url = self.get_url('GOOD_NAME')
         response = requests.get(good_url)
         self.assertEqual(200, response.status_code)
         self.assertIn('>IGV<', response.text)
+
+    def test_data_directory(self):
+        good_url = self.get_url('GOOD_NAME')
+        response = requests.get(good_url + 'data/input.json')
+        self.assertEqual(200, response.status_code)
+
+    # Bad configurations:
 
     def test_missing_assembly_home_page(self):
         missing_assembly_name = self.get_url('MISSING_ASSEMBLY_NAME')
@@ -34,10 +43,6 @@ class ContainerTest(unittest.TestCase):
             response.text
         )
 
-    def test_data_directory(self):
-        good_url = self.get_url('GOOD_NAME')
-        response = requests.get(good_url + 'data/input.json')
-        self.assertEqual(200, response.status_code)
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)
