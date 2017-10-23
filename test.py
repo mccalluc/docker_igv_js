@@ -7,8 +7,7 @@ import requests
 
 class ContainerTest(unittest.TestCase):
 
-    def get_url(self, name_key):
-        name = os.environ[name_key]
+    def get_url(self, name):
         command = "docker port {} | perl -pne 's/.*://'".format(name)
         port = subprocess.check_output(command, shell=True).strip().decode('utf-8')
         url = 'http://localhost:{}/'.format(port)
@@ -22,20 +21,21 @@ class ContainerTest(unittest.TestCase):
     # Good configuration:
 
     def test_good_home_page(self):
-        good_url = self.get_url('GOOD_NAME')
+        good_url = self.get_url('good')
         response = requests.get(good_url)
         self.assertEqual(200, response.status_code)
         self.assertIn('>IGV<', response.text)
 
     def test_data_directory(self):
-        good_url = self.get_url('GOOD_NAME')
+        good_url = self.get_url('good')
         response = requests.get(good_url + 'data/input.json')
         self.assertEqual(200, response.status_code)
+        self.assertIn('{', response.text)
 
     # Bad configurations:
 
     def test_missing_assembly_home_page(self):
-        missing_assembly_name = self.get_url('MISSING_ASSEMBLY_NAME')
+        missing_assembly_name = self.get_url('missing_assembly')
         response = requests.get(missing_assembly_name)
         self.assertEqual(200, response.status_code)  # Not ideal, but ok for now.
         self.assertIn(
