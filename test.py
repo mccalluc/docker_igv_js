@@ -41,6 +41,18 @@ class ContainerTest(unittest.TestCase):
             'Unexpected 404 from https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/hgFAKE/cytoBand.txt'
         )
 
+    def test_multiple_assemblies(self):
+        self.assert_expected_response(
+            'multiple_assemblies',
+            'AssertionError()'  # If this happens often, could return more detail, but this is enough, for now.
+        )
+
+    def test_no_parameters(self):
+        self.assert_expected_response(
+            'no_parameters',
+            "KeyError('parameters',)"
+        )
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)

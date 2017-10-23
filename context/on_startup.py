@@ -75,7 +75,7 @@ if __name__ == '__main__':
         write_igv_configuration()
     except StandardError, e:
         html = '<html><body><pre>{}</pre></body></html>'.format(
-            escape(e.message)
+            escape(e.message if ' ' in e.message else repr(e))  # Print whole error if message too short
         )
         with open('index.html', 'w') as index_file:
             index_file.write(html)
