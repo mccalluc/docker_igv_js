@@ -54,9 +54,9 @@
   },
   "parameters": [
     {
-      "name": "Assembly",
+      "name": "Genome Build",
       "description": "Genome assembly identifier",
-      "value_type": "STRING",
+      "value_type": "GENOME_BUILD",
       "default_value": "hg19",
       "value": "hgFAKE"
     }

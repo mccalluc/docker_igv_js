@@ -12,7 +12,7 @@ def write_igv_configuration():
     tracks = []
     assemblies = [
         parameter['value'] for parameter in config_data['parameters']
-            if parameter['name'] == 'Assembly'
+            if parameter['name'] == 'Genome Build'
     ]
     assert len(assemblies) == 1
     assembly = assemblies[0]
