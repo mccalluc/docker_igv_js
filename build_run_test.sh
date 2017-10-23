@@ -14,7 +14,7 @@ cp -a input_fixtures $DATA_DIR
 # so we copy first to avoid contamination of the fixture.
 
 export GOOD_NAME=good_$NAME
-export BAD_NAME=bad_$NAME
+export MISSING_ASSEMBLY_NAME=missing_assembly_$NAME
 
 docker run --detach \
            --name $GOOD_NAME \
@@ -23,9 +23,9 @@ docker run --detach \
            $NAME
 
 docker run --detach \
-           --name $BAD_NAME \
+           --name $MISSING_ASSEMBLY_NAME \
            --publish 80 \
-           --volume $DATA_DIR/bad_assembly:/var/www/data \
+           --volume $DATA_DIR/missing_assembly:/var/www/data \
            $NAME
 
 python test.py
