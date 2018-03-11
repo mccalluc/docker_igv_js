@@ -10,7 +10,7 @@ RUN pip install -r requirements.txt
 #RUN chown www:www .
 #USER www
 
-ENV IGV_BASE=http://igv.org/web/release/1.0.8/igv-1.0.8
+ENV IGV_BASE=http://igv.org/web/release/1.0.9/igv-1.0.9
 
 # Download versioned igv to generic filenames so our index.html doesn't
 # have to be updated
