@@ -1,31 +1,28 @@
-# Docker on Travis requires sudo.
 sudo: required
-
 install:
-  - sudo pip install -r requirements.txt
-
+- sudo pip install -r requirements.txt
 script:
-  - source define_repo.sh
-  - sudo ./build_run_test.sh
-
+- source define_repo.sh
+- sudo ./build_run_test.sh
 after_success:
-  - IMAGE=`sudo docker ps --latest --format '{{ .Image }}'` # TODO: with more containers, can't rely on ordering
-  - tag_push() { echo "Tagging into $2"; sudo docker tag $1 $2; sudo docker push $2; }
+- IMAGE=`sudo docker ps --latest --format '{{ .Image }}'` # TODO: with more containers, can't rely on ordering
+- tag_push() { echo "Tagging into $2"; sudo docker tag $1 $2; sudo docker push $2; }
+- sudo docker login -u mccalluc -p $DOCKER_PASS
+- tag_push $IMAGE $REPO
+- |
+  if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then
+    echo "PR!";
 
-  - sudo docker login -u $DOCKER_USER -p $DOCKER_PASS
-  # Always update "latest": the cache will be used for the next build.
-  - tag_push $IMAGE $REPO
-  - >
-      if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then
-        echo "PR!";
-
-        BRANCH=`echo ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} | perl -pne 'chomp;s{.*/}{};s/\W/-/g'`;
-        tag_push $IMAGE $REPO:$BRANCH;
-        tag_push $IMAGE $REPO:latest-pr;
-      fi
-  - >
-      if [ ! -z "$TRAVIS_TAG" ]; then
-        echo "Git tag!";
-        tag_push $IMAGE $REPO:$TRAVIS_TAG;
-        tag_push $IMAGE $REPO:latest;
-      fi
+    BRANCH=`echo ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} | perl -pne 'chomp;s{.*/}{};s/\W/-/g'`;
+    tag_push $IMAGE $REPO:$BRANCH;
+    tag_push $IMAGE $REPO:latest-pr;
+  fi
+- |
+  if [ ! -z "$TRAVIS_TAG" ]; then
+    echo "Git tag!";
+    tag_push $IMAGE $REPO:$TRAVIS_TAG;
+    tag_push $IMAGE $REPO:latest;
+  fi
+env:
+  global:
+    secure: BC/SZV23oB2F9N+yery0AlDsjLfkpdpu2BIjH2F0DPIuE6Lc01R5E1VZlOB8WawrguymKIKNbu37fK5604QMCRZ8gPy2pfC6u3qNivXQakgVXcFObNAD7OCyxQ+X0/cFFuQKtUSKZazjoP8p3oxoBvsBy7T5ReX8CWiWRbDL8zVmShythjfkjEcgpwCxQI6FhqIaWZHdeBccm2gfgQVDish1AVCDXwmC1QZilIsoEwbMiTQB54e2vLDEiSQVv7bd3iT32hX7yhj0evWfxpHUEuW6pSBVomfIE5CFSjYKITOVy6tq2neAv8qkHKpIS+9XD286L0tG7joTzqjvvSG2/uZ1DlZAhNLbTFbrWt/Jku2F0Rg3RkhKQ4GEHVTSw7BpLh2p91AYr2P/p58t6+CmQGmHyZ3bCOznmi8h3qNYjRFpPFIdVb4JnSZq0EMSj+J05D8Q4Iva1vUmCAunFt+lHM7TisOAL9iqJ3w+1pDKMMIROWeGaYJgK+TPbl646iUcT8ruH9J2GoJZ9cedJSU4ZhgiPuKoufEzTTj5x9BJQCkbFS67JJ4tjAJcxKpHswSlDLL87d1xGzTPNzx3D/2XxT9ndf77iDunOCMdgHNVADmEPaV2I9UKa0K5XjlcvkJPl5v9u36YZhdXDJJpFiMBrqcs/LjeGmsvDLtCRNmkn5A=
