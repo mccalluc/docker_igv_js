@@ -10,12 +10,19 @@ RUN pip install -r requirements.txt
 #RUN chown www:www .
 #USER www
 
-ENV IGV_BASE=http://igv.org/web/release/1.0.8/igv-1.0.8
+ENV IGV_V=1.0.8
+ENV IGV_BASE=http://igv.org/web/release/$IGV_V
 
 # Download versioned igv to generic filenames so our index.html doesn't
 # have to be updated
-RUN python -m wget $IGV_BASE.js -o igv.js
-RUN python -m wget $IGV_BASE.css -o igv.css
+RUN python -m wget $IGV_BASE/igv-$IGV_V.js -o igv.js
+RUN python -m wget $IGV_BASE/igv-$IGV_V.css -o igv.css
+
+WORKDIR /var/www/img
+RUN python -m wget $IGV_BASE/img/igv_logo_letters_paths.svg
+RUN python -m wget $IGV_BASE/img/cursor_logo.svg
+RUN python -m wget $IGV_BASE/img/cursor_logo.png
+WORKDIR /var/www
 
 ENV CDN_BASE=http://ajax.googleapis.com/ajax/libs
 RUN python -m wget $CDN_BASE/jquery/1.11.1/jquery.min.js
