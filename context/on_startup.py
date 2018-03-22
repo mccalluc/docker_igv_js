@@ -24,9 +24,8 @@ def write_igv_configuration():
         tracks.append(
             {
                 "name": "{} - {}".format(
-                    node_data["node_solr_info"][
-                        "filename_Characteristics_generic_s"],
-                    node_data["node_solr_info"]["name"]
+                    node_data["node_solr_info"]["name"],
+                    node_data["file_url"]
                 ),
                 "url":  node_data["file_url"]
             }

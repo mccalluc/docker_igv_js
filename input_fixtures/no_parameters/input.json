@@ -32,7 +32,6 @@
         "technology_Characteristics_generic_s": "DNA microarray",
         "measurement_Characteristics_generic_s": "transcription profiling",
         "organism_Characteristics_720_361_s": "Mus musculus",
-        "filename_Characteristics_generic_s": "040909%20DT%20MOUSE%20430%202.0%20Sample%20526.CEL",
         "organism_part_Characteristics_generic_s": "Bone marrow",
         "technology_source_Characteristics_generic_s": "OBI",
         "REFINERY_FILETYPE_720_361_s": "Affymetrix Probe Results File",
