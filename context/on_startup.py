@@ -5,9 +5,13 @@ import SocketServer
 from cgi import escape
 
 
+def get_refinery_input():
+    """ Make a GET request to acquire the input data for the container"""
+    return requests.get(os.environ["INPUT_JSON_URL"]).json()
+
+
 def write_igv_configuration():
-    with open("data/input.json") as f:
-        config_data = json.loads(f.read())
+    config_data = get_refinery_input()
 
     tracks = []
     assemblies = [
