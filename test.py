@@ -19,16 +19,18 @@ class ContainerTest(unittest.TestCase):
             time.sleep(1)
         self.fail('Server never came up: ' + name)
 
-    def assert_expected_response(self, name, expected, path='/'):
+    def assert_expected_response(self, name, expected=None, path='/'):
         url = self.get_url(name)
         response = requests.get(url + path)
-        self.assertEqual(200, response.status_code)  # TODO: Not ideal for error pages
-        self.assertIn(expected, response.text)
+        # TODO: Not ideal for error pages
+        self.assertEqual(200, response.status_code)
+        if expected is not None:
+            self.assertIn(expected, response.text)
 
     # Good configuration:
 
     def test_good_home_page(self):
-        self.assert_expected_response('good', '>IGV<')
+        self.assert_expected_response('good', expected='>IGV<')
 
     def test_input_data_url(self):
         self.assert_expected_response('good', path='/options.json')
@@ -38,19 +40,21 @@ class ContainerTest(unittest.TestCase):
     def test_missing_assembly(self):
         self.assert_expected_response(
             'missing_assembly',
-            'Unexpected 404 from https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/hgFAKE/cytoBand.txt'
+            expected='Unexpected 404 from https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/hgFAKE/cytoBand.txt'
         )
 
     def test_multiple_assemblies(self):
         self.assert_expected_response(
             'multiple_assemblies',
-            'AssertionError()'  # If this happens often, could return more detail, but this is enough, for now.
+            # If this happens often, could return more detail, but this is
+            # enough, for now.
+            expected='AssertionError()'
         )
 
     def test_no_parameters(self):
         self.assert_expected_response(
             'no_parameters',
-            "KeyError('parameters',)"
+            expected="KeyError('parameters',)"
         )
 
 
