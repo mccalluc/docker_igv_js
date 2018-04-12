@@ -1,7 +1,9 @@
-import json
-import requests
 import SimpleHTTPServer
 import SocketServer
+import json
+import os
+import requests
+
 from cgi import escape
 
 
@@ -16,7 +18,7 @@ def write_igv_configuration():
     tracks = []
     assemblies = [
         parameter['value'] for parameter in config_data['parameters']
-            if parameter['name'] == 'Genome Build'
+        if parameter['name'] == 'Genome Build'
     ]
     assert len(assemblies) == 1
     assembly = assemblies[0]
@@ -31,7 +33,7 @@ def write_igv_configuration():
                     node_data["node_solr_info"]["name"],
                     node_data["file_url"]
                 ),
-                "url":  node_data["file_url"]
+                "url": node_data["file_url"]
             }
         )
     reference = {
@@ -54,9 +56,12 @@ def validate_urls(urls):
     url_status = {}
     for url in urls:
         try:
-            # byte-range so we don't download the file; S3 does not support HEAD.
-            status = requests.get(url, headers={'Range': 'bytes=0-0'}).status_code
-        except requests.exceptions.RequestException, e:
+            # byte-range so we don't download the file; S3 does not support
+            # HEAD.
+            status = requests.get(
+                url, headers={
+                    'Range': 'bytes=0-0'}).status_code
+        except requests.exceptions.RequestException as e:
             status = e.message
         url_status[url] = status
     messages = [
@@ -65,7 +70,7 @@ def validate_urls(urls):
         if status != 206  # If byte-ranges are handled, should be 206, not 200.
     ]
     if messages:
-        raise StandardError('\n'.join(messages))
+        raise Exception('\n'.join(messages))
 
 
 def start_server():
@@ -76,9 +81,10 @@ def start_server():
 if __name__ == '__main__':
     try:
         write_igv_configuration()
-    except StandardError, e:
+    except Exception as e:
         html = '<html><body><pre>{}</pre></body></html>'.format(
-            escape(e.message if ' ' in e.message else repr(e))  # Print whole error if message too short
+            # Print whole error if message too short
+            escape(e.message if ' ' in e.message else repr(e))
         )
         with open('index.html', 'w') as index_file:
             index_file.write(html)
