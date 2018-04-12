@@ -1,18 +1,19 @@
-import unittest
-import os
+import requests
 import subprocess
 import time
-import requests
+import unittest
 
 
 class ContainerTest(unittest.TestCase):
 
     def get_url(self, name):
         command = "docker port {} | perl -pne 's/.*://'".format(name)
-        port = subprocess.check_output(command, shell=True).strip().decode('utf-8')
+        port = subprocess.check_output(
+            command, shell=True).strip().decode('utf-8')
         url = 'http://localhost:{}'.format(port)
         for i in xrange(5):
-            if 0 == subprocess.call('curl --fail --silent ' + url + ' > /dev/null', shell=True):
+            if 0 == subprocess.call(
+                    'curl --fail --silent ' + url + ' > /dev/null', shell=True):
                 print '{} -> {}'.format(name, url)
                 return url
             print('Still waiting for server...')
