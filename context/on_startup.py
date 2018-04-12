@@ -46,7 +46,7 @@ def write_igv_configuration():
         "reference": reference,
         "tracks": tracks
     }
-    with open('data/options.json', 'w') as options_file:
+    with open('options.json', 'w') as options_file:
         options_file.write(json.dumps(options))
 
 
