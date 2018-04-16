@@ -11,7 +11,9 @@ class ContainerTest(unittest.TestCase):
     def get_url(self, name):
         command = "docker port {} | perl -pne 's/.*://'".format(name)
         port = subprocess.check_output(
-            command, shell=True).strip().decode('utf-8')
+            command,
+            shell=True
+        ).strip().decode('utf-8')
         url = 'http://localhost:{}'.format(port)
         for i in xrange(5):
             if 0 == subprocess.call(
