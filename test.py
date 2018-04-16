@@ -48,7 +48,7 @@ class ContainerTest(unittest.TestCase):
     def test_missing_assembly(self):
         self.assert_expected_response(
             'missing_assembly',
-            expected='Unexpected 404 from https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/hgFAKE/cytoBand.txt'
+            'Unexpected 404 from https://s3.amazonaws.com/data.cloud.refinery-platform.org/data/igv-reference/hgFAKE/cytoBand.txt'
         )
 
     def test_multiple_assemblies(self):
