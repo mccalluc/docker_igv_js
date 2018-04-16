@@ -37,7 +37,11 @@ class ContainerTest(unittest.TestCase):
         self.assert_expected_response('good', expected='>IGV<')
 
     def test_input_data_url(self):
-        self.assert_expected_response('good', path='/options.json')
+        self.assert_expected_response(
+            'good',
+            expected='{',
+            path='/options.json'
+        )
 
     # Bad configurations:
 
