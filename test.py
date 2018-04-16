@@ -3,6 +3,8 @@ import subprocess
 import time
 import unittest
 
+from test_utils import TestContainerRunner
+
 
 class ContainerTest(unittest.TestCase):
 
@@ -28,7 +30,7 @@ class ContainerTest(unittest.TestCase):
         if expected is not None:
             self.assertIn(expected, response.text)
 
-    # Good configuration:
+    # Good configurations:
 
     def test_good_home_page(self):
         self.assert_expected_response('good', expected='>IGV<')
@@ -60,10 +62,14 @@ class ContainerTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    test_container_runner = TestContainerRunner()
+    test_container_runner.run()
+
     suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     if result.wasSuccessful():
         print('PASS!')
     else:
         print('FAIL!')
+        test_container_runner.cleanup_containers()
         exit(1)
