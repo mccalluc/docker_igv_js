@@ -29,8 +29,7 @@ class ContainerTest(unittest.TestCase):
         response = requests.get(url + path)
         # TODO: Not ideal for error pages
         self.assertEqual(200, response.status_code)
-        if expected is not None:
-            self.assertIn(expected, response.text)
+        self.assertIn(expected, response.text)
 
     # Good configurations:
 
