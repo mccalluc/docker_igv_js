@@ -59,8 +59,9 @@ def validate_urls(urls):
             # byte-range so we don't download the file; S3 does not support
             # HEAD.
             status = requests.get(
-                url, headers={
-                    'Range': 'bytes=0-0'}).status_code
+                url,
+                headers={'Range': 'bytes=0-0'}
+            ).status_code
         except requests.exceptions.RequestException as e:
             status = e.message
         url_status[url] = status
