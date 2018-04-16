@@ -24,7 +24,7 @@ class ContainerTest(unittest.TestCase):
             time.sleep(1)
         self.fail('Server never came up: ' + name)
 
-    def assert_expected_response(self, name, expected=None, path='/'):
+    def assert_expected_response(self, name, expected, path='/'):
         url = self.get_url(name)
         response = requests.get(url + path)
         # TODO: Not ideal for error pages
@@ -34,12 +34,12 @@ class ContainerTest(unittest.TestCase):
     # Good configurations:
 
     def test_good_home_page(self):
-        self.assert_expected_response('good', expected='>IGV<')
+        self.assert_expected_response('good', '>IGV<')
 
     def test_input_data_url(self):
         self.assert_expected_response(
             'good',
-            expected='{',
+            '{',
             path='/options.json'
         )
 
@@ -56,13 +56,13 @@ class ContainerTest(unittest.TestCase):
             'multiple_assemblies',
             # If this happens often, could return more detail, but this is
             # enough, for now.
-            expected='AssertionError()'
+            'AssertionError()'
         )
 
     def test_no_parameters(self):
         self.assert_expected_response(
             'no_parameters',
-            expected="KeyError('parameters',)"
+            "KeyError('parameters',)"
         )
 
 
