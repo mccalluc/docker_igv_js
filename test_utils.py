@@ -84,7 +84,7 @@ class TestContainerRunner(object):
             self.containers.append(container)
 
     def cleanup_containers(self):
-        map(
-            lambda container: container.remove(force=True, v=True),
-            self.containers
-        )
+        print("Cleaning up TestContainerRunner containers...")
+        print(self.containers)
+        for container in self.containers:
+            container.remove(force=True, v=True)
