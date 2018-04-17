@@ -1,5 +1,5 @@
+import docker
 import requests
-import subprocess
 import sys
 import time
 import unittest
@@ -10,12 +10,10 @@ from test_utils import TestContainerRunner
 class ContainerTest(unittest.TestCase):
 
     def get_url(self, name):
-        command = "docker port {} | perl -pne 's/.*://'".format(name)
-        port = subprocess.check_output(
-            command,
-            shell=True
-        ).strip().decode('utf-8')
+        client = docker.APIClient(base_url='unix://var/run/docker.sock')
+        port = client.port(name, 80)[0]["HostPort"]
         url = 'http://localhost:{}'.format(port)
+
         for i in range(5):
             try:
                 requests.get(url)
