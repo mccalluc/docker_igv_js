@@ -17,12 +17,14 @@ class ContainerTest(unittest.TestCase):
         ).strip().decode('utf-8')
         url = 'http://localhost:{}'.format(port)
         for i in range(5):
-            if 0 == subprocess.call(
-                    'curl --fail --silent ' + url + ' > /dev/null', shell=True):
+            try:
+                requests.get(url)
                 return url
-            print('Still waiting for server...')
-            time.sleep(1)
-        self.fail('Server never came up: ' + name)
+            except:
+                print('Still waiting for server...')
+                time.sleep(1)
+        else:
+            self.fail('Server never came up')
 
     def assert_expected_response(self, name, expected, path='/'):
         url = self.get_url(name)
