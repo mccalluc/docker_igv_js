@@ -1,5 +1,6 @@
 import requests
 import subprocess
+import sys
 import time
 import unittest
 
@@ -15,7 +16,7 @@ class ContainerTest(unittest.TestCase):
             shell=True
         ).strip().decode('utf-8')
         url = 'http://localhost:{}'.format(port)
-        for i in xrange(5):
+        for i in range(5):
             if 0 == subprocess.call(
                     'curl --fail --silent ' + url + ' > /dev/null', shell=True):
                 print '{} -> {}'.format(name, url)

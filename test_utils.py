@@ -1,9 +1,9 @@
-import SimpleHTTPServer
-import SocketServer
+import _thread
 import docker
 import os
 import socket
-import thread
+
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 
 class TestFixtureServer(object):
@@ -21,13 +21,12 @@ class TestFixtureServer(object):
         return host_ip
 
     def _start_server(self):
-        handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-        server = SocketServer.TCPServer((self.ip, self.port), handler)
+        server = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
         server.serve_forever()
 
     def start_server_in_background(self):
         # start the server in a background thread
-        thread.start_new_thread(self._start_server, ())
+        _thread.start_new_thread(self._start_server, ())
 
 
 class TestContainerRunner(object):
@@ -53,6 +52,7 @@ class TestContainerRunner(object):
         self.client.images.pull(self.repository)
 
     def _build_image(self):
+        print("Building image: {}".format(self.image_name))
         self.client.images.build(
             path="context",
             tag=self.image_name,
@@ -62,7 +62,9 @@ class TestContainerRunner(object):
         )
 
     def run(self):
+        print("Starting TestContainerRunner...")
         for test_fixture in os.listdir("input_fixtures"):
+            print("Creating container: {}".format(test_fixture))
             container = self.client.containers.run(
                 self.image_name,
                 detach=True,
