@@ -19,7 +19,6 @@ class ContainerTest(unittest.TestCase):
         for i in range(5):
             if 0 == subprocess.call(
                     'curl --fail --silent ' + url + ' > /dev/null', shell=True):
-                print '{} -> {}'.format(name, url)
                 return url
             print('Still waiting for server...')
             time.sleep(1)
