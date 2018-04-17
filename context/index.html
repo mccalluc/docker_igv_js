@@ -15,7 +15,7 @@
     <script type="text/javascript" src="jquery-ui.min.js"></script>
     <script type="text/javascript" src="igv.js"></script>
     <script>
-        $.getJSON("data/options.json", function(options){
+        $.getJSON("options.json", function(options){
             igv.createBrowser($("body")[0], options);
         });
     </script>

@@ -1,37 +1,47 @@
-import unittest
-import os
-import subprocess
-import time
+import docker
 import requests
+import sys
+import time
+import unittest
+
+from test_utils import TestContainerRunner
 
 
 class ContainerTest(unittest.TestCase):
 
     def get_url(self, name):
-        command = "docker port {} | perl -pne 's/.*://'".format(name)
-        port = subprocess.check_output(command, shell=True).strip().decode('utf-8')
+        client = docker.APIClient(base_url='unix://var/run/docker.sock')
+        port = client.port(name, 80)[0]["HostPort"]
         url = 'http://localhost:{}'.format(port)
-        for i in xrange(5):
-            if 0 == subprocess.call('curl --fail --silent ' + url + ' > /dev/null', shell=True):
-                print '{} -> {}'.format(name, url)
+
+        for i in range(5):
+            try:
+                requests.get(url)
                 return url
-            print('Still waiting for server...')
-            time.sleep(1)
-        self.fail('Server never came up: ' + name)
+            except:
+                print('Still waiting for server...')
+                time.sleep(1)
+        else:
+            self.fail('Server never came up')
 
     def assert_expected_response(self, name, expected, path='/'):
         url = self.get_url(name)
         response = requests.get(url + path)
-        self.assertEqual(200, response.status_code)  # TODO: Not ideal for error pages
+        # TODO: Not ideal for error pages
+        self.assertEqual(200, response.status_code)
         self.assertIn(expected, response.text)
 
-    # Good configuration:
+    # Good configurations:
 
     def test_good_home_page(self):
         self.assert_expected_response('good', '>IGV<')
 
-    def test_data_directory(self):
-        self.assert_expected_response('good', '{', '/data/input.json')
+    def test_input_data_url(self):
+        self.assert_expected_response(
+            'good',
+            '{',
+            path='/options.json'
+        )
 
     # Bad configurations:
 
@@ -44,7 +54,9 @@ class ContainerTest(unittest.TestCase):
     def test_multiple_assemblies(self):
         self.assert_expected_response(
             'multiple_assemblies',
-            'AssertionError()'  # If this happens often, could return more detail, but this is enough, for now.
+            # If this happens often, could return more detail, but this is
+            # enough, for now.
+            'AssertionError()'
         )
 
     def test_no_parameters(self):
@@ -55,10 +67,9 @@ class ContainerTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)
-    result = unittest.TextTestRunner(verbosity=2).run(suite)
-    if result.wasSuccessful():
-        print('PASS!')
-    else:
-        print('FAIL!')
-        exit(1)
+    with TestContainerRunner():
+        suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)
+        result = unittest.TextTestRunner(verbosity=2).run(suite)
+
+    if not result.wasSuccessful():
+        sys.exit(1)
