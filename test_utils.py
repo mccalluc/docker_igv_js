@@ -46,7 +46,7 @@ class TestContainerRunner(object):
         self.run()
 
     def __exit__(self, *args):
-        if os.environ.get("CONTINUOUS_INTEGRATION") is not None:
+        if not os.environ.get("CONTINUOUS_INTEGRATION"):
             self.cleanup_containers()
 
     def _pull_image(self):
