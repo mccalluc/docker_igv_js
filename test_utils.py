@@ -43,6 +43,12 @@ class TestContainerRunner(object):
         self._pull_image()
         self._build_image()
 
+    def __enter__(self):
+        self.run()
+
+    def __exit__(self, *args):
+        self.cleanup_containers()
+
     def _pull_image(self):
         self.client.images.pull(self.repository)
 

@@ -67,14 +67,9 @@ class ContainerTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    test_container_runner = TestContainerRunner()
-    test_container_runner.run()
+    with TestContainerRunner():
+        suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)
+        result = unittest.TextTestRunner(verbosity=2).run(suite)
 
-    suite = unittest.TestLoader().loadTestsFromTestCase(ContainerTest)
-    result = unittest.TextTestRunner(verbosity=2).run(suite)
-    if result.wasSuccessful():
-        print('PASS!')
-    else:
-        print('FAIL!')
-        test_container_runner.cleanup_containers()
-        exit(1)
+    if not result.wasSuccessful():
+        sys.exit(1)
