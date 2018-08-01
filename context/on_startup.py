@@ -9,7 +9,10 @@ from cgi import escape
 
 def get_refinery_input():
     """ Make a GET request to acquire the input data for the container"""
-    return requests.get(os.environ["INPUT_JSON_URL"]).json()
+    input_json_url = os.environ.get('INPUT_JSON_URL')
+    if input_json_url:
+        return requests.get(input_json_url).json()
+    return json.loads(os.environ['INPUT_JSON'])
 
 
 def write_igv_configuration():
