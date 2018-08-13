@@ -4,8 +4,7 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-- source define_repo.sh
-- ./build_run_test.sh
+- python test.py
 after_success:
 - IMAGE=`docker ps --latest --format '{{ .Image }}'` # TODO: with more containers, can't rely on ordering
 - echo $IMAGE
