@@ -33,8 +33,8 @@ class TestContainerRunner(object):
 
     def __init__(self):
         self.client = docker.from_env()
-        self.image_name = os.environ["NAME"]
-        self.repository = os.environ["REPO"]
+        self.image_name = "docker_igv_js"
+        self.repository = "gehlenborglab/docker_igv_js"
         self.containers = []
         self.test_fixture_server = TestFixtureServer()
         self.test_fixture_server.start_server_in_background()
@@ -50,7 +50,7 @@ class TestContainerRunner(object):
             self.cleanup_containers()
 
     def _pull_image(self):
-        self.client.images.pull(self.repository)
+        self.client.images.pull(self.repository + ":latest")
 
     def _build_image(self):
         print("Building image: {}".format(self.image_name))
