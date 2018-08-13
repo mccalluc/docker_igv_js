@@ -2,4 +2,4 @@
 
 OWNER=gehlenborglab
 export NAME=docker_igv_js
-export REPO=$OWNER/$NAME
+export REPO=$OWNER/$NAME:latest
