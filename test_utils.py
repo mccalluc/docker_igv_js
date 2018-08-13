@@ -50,7 +50,9 @@ class TestContainerRunner(object):
             self.cleanup_containers()
 
     def _pull_image(self):
-        self.client.images.pull(self.repository)
+        latest_image = self.repository + ":latest"
+        print("Pulling image: {}".format(latest_image))
+        self.client.images.pull(latest_image)
 
     def _build_image(self):
         print("Building image: {}".format(self.image_name))
