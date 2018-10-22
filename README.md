@@ -20,7 +20,7 @@ Clone the repository, make sure Docker is installed, and then:
 
 ```
 pip install -r requirements.txt
-./build_run_test.sh
+python test.py
 ```
 
 After the tests run the container is left up, with the local url where it can be accessed.
