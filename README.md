@@ -35,18 +35,13 @@ After the tests run successfully the containers used for testing are killed.
     docker run -p 8080:80 -e INPUT_JSON='
       {
         "node_info": {
-          "<some unique key>": {
-            "file_url": "<url to an IGV-compatible file>",
-            "node_solr_info": {
-              "name": "<some descriptor of your file to be a prefix in your track name>"
-            }
+          "id-1": {
+            "file_url": "https://raw.githubusercontent.com/igvteam/igv/master/test/data/bed/intervalTest.bed",
+            "node_solr_info": {"name": "track-name"}
           }
         },
         "parameters": [
-          {
-            "name": "Genome Build",
-            "value": "hg19"
-          }
+          {"name": "Genome Build", "value": "hg19"}
         ]
       }' gehlenborglab/docker_igv_js
     ```
