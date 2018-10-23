@@ -20,10 +20,36 @@ Clone the repository, make sure Docker is installed, and then:
 
 ```
 pip install -r requirements.txt
-./build_run_test.sh
+python test.py
 ```
 
-After the tests run the container is left up, with the local url where it can be accessed.
+After the tests run successfully the containers used for testing are killed.
+
+## Running and accessing the container
+
+- The docker_igv_js container can be run by pointing to valid `input.json` file by url: 
+    - `docker run -p 8080:80 -e INPUT_JSON_URL=https://raw.githubusercontent.com/refinery-platform/docker_igv_js/master/input_fixtures/good/input.json gehlenborglab/docker_igv_js`
+
+- Or an `input.json` file can be constructed and passed to the container directly through the envvar: `INPUT_JSON`.
+  - ```
+    docker run -p 8080:80 -e INPUT_JSON='
+      {
+        "node_info": {
+          "id-1": {
+            "file_url": "https://raw.githubusercontent.com/igvteam/igv/master/test/data/bed/intervalTest.bed",
+            "node_solr_info": {"name": "track-name"}
+          }
+        },
+        "parameters": [
+          {"name": "Genome Build", "value": "hg19"}
+        ]
+      }' gehlenborglab/docker_igv_js
+    ```
+
+- Visit http://localhost:8080
+
+
+> **Note:** The current intentions of this project are to satisfy the needs of the [refinery-platform](https://github.com/refinery-platform/refinery-platform), which currently has a strict way of passing input data to the underlying application (as seen above). Decoupling this tool, and providing a more general purpose solution has been [talked of here](https://github.com/refinery-platform/docker_igv_js/issues/29#issuecomment-431904804).
 
 ## Release
 
