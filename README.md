@@ -23,32 +23,38 @@ pip install -r requirements.txt
 python test.py
 ```
 
-After the tests run the containers used for testing are killed, but one can be brought up again with the following command: 
-    - `docker run -p 8080:80 -e INPUT_JSON_URL=https://raw.githubusercontent.com/refinery-platform/docker_igv_js/master/input_fixtures/good/input.json docker_igv_js`
+After the tests run successfully the containers used for testing are killed.
 
-An `input.json` file can also be constructed and passed to the container as an envvar: `INPUT_JSON`.
+## Running and accessing the container
 
-    - Create a file locally containing the minimal portions of the JSONSchema required by the [refinery-platform](https://github.com/refinery-platform/refinery-platform)
-      - ```
-        {
-          "node_info": {
-            "<some unique key>": {
-              "file_url": "<url to an IGV-compatible file",
-              "node_solr_info": {
-                "name": "<some descriptor of your file to be a prefix in your track name>"
-              }
+- The docker_igv_js container can be run by pointing to valid `input.json` file by url: 
+    - `docker run -p 8080:80 -e INPUT_JSON_URL=https://raw.githubusercontent.com/refinery-platform/docker_igv_js/master/input_fixtures/good/input.json gehlenborglab/docker_igv_js`
+
+- Or an `input.json` file can be constructed and passed to the container directly through the envvar: `INPUT_JSON`.
+  - ```
+    docker run -p 8080:80 -e INPUT_JSON='
+      {
+        "node_info": {
+          "<some unique key>": {
+            "file_url": "<url to an IGV-compatible file>",
+            "node_solr_info": {
+              "name": "<some descriptor of your file to be a prefix in your track name>"
             }
-          },
-          "parameters": [
-            {
-              "name": "Genome Build",
-              "value": "hg19"
-            }
-          ]
-        }
-        ```
-    - `docker run -p 8080:80 -e INPUT_JSON="$(cat <file name containing the above json>)" docker_igv_js`
+          }
+        },
+        "parameters": [
+          {
+            "name": "Genome Build",
+            "value": "hg19"
+          }
+        ]
+      }' gehlenborglab/docker_igv_js
+    ```
 
+- Visit http://localhost:8080
+
+
+> **Note:** The current intentions of this project are to satisfy the needs of the [refinery-platform](https://github.com/refinery-platform/refinery-platform), which currently has a strict way of passing input data to the underlying application (as seen above). Decoupling this tool, and providing a more general purpose solution has been [talked of here](https://github.com/refinery-platform/docker_igv_js/issues/29#issuecomment-431904804).
 
 ## Release
 
