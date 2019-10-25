@@ -40,6 +40,8 @@ def write_igv_configuration():
         if '.bam' in track['name']:
             # assume that there is only one auxiliary file for bam igv and it's
             # the .bai file
+            track['type'] = 'alignment'
+            track['format'] = 'bam'
             track['indexURL'] = node_data['auxiliary_file_list'][0]
         tracks.append(track)
     reference = {
