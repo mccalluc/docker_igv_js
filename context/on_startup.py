@@ -30,15 +30,18 @@ def write_igv_configuration():
         assembly
     )
     for node_data in config_data["node_info"].values():
-        tracks.append(
-            {
-                "name": "{} - {}".format(
-                    node_data["node_solr_info"]["name"],
-                    node_data["file_url"]
-                ),
-                "url": node_data["file_url"]
-            }
-        )
+        track = {
+            "name": "{} - {}".format(
+                node_data["node_solr_info"]["name"],
+                node_data["file_url"]
+            ),
+            "url": node_data["file_url"]
+        }
+        if '.bam' in track['name']:
+            # assume that there is only one auxiliary file for bam igv and it's
+            # the .bai file
+            track['indexURL'] = node_data['auxiliary_file_list'][0]
+        tracks.append(track)
     reference = {
         "fastaURL": url_base + assembly + ".fa",
         "indexURL": url_base + assembly + ".fa.fai",
