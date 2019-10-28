@@ -30,16 +30,17 @@ def write_igv_configuration():
         assembly
     )
     for node_data in config_data["node_info"].values():
+        file_url = node_data["file_url"]
         track = {
             "name": "{} - {}".format(
                 node_data["node_solr_info"]["name"],
-                node_data["file_url"]
+                file_url
             ),
-            "url": node_data["file_url"]
+            "url": file_url
         }
-        if '.bam' == os.path.splitext(track['name']):
-            # assume that there is only one auxiliary file for bam igv and it's
-            # the .bai file
+        if '.bam' == os.path.splitext(file_url):
+            # Assume that there is only one auxiliary file for bam igv and it's
+            # the .bai file.
             track['type'] = 'alignment'
             track['format'] = 'bam'
             track['indexURL'] = node_data['auxiliary_file_list'][0]
