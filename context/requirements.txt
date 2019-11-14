@@ -1,4 +1,4 @@
 # This requirements.txt is for scripts run inside the container.
 
 wget==3.2
-requests==2.12.3
+requests==2.20.0
