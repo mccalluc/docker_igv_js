@@ -8,6 +8,12 @@ script:
 after_success:
 - IMAGE=`docker ps --latest --format '{{ .Image }}'` # TODO: with more containers, can't rely on ordering
 - echo $IMAGE
+- OWNER=gehlenborglab
+- echo $OWNER
+- NAME=docker_igv_js
+- echo $NAME
+- REPO=$OWNER/$NAME
+- echo $REPO
 - tag_push() { echo "Tagging into $2"; docker tag $1 $2; docker push $2; }
 - docker login -u mccalluc -p $DOCKER_PASS
 - tag_push $IMAGE $REPO
