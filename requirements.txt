@@ -1,4 +1,4 @@
 # This requirements.txt is just for the unittests run outside the container.
 
-requests==2.14.2
+requests==2.20.0
 docker==3.2.1
