@@ -38,7 +38,7 @@ def write_igv_configuration():
             ),
             "url": file_url
         }
-        if '.bam' == os.path.splitext(file_url):
+        if '.bam' in os.path.splitext(file_url):
             # Assume that there is only one auxiliary file for bam igv and it's
             # the .bai file.
             track['type'] = 'alignment'
