@@ -1,9 +1,9 @@
 {
   "node_info": {
     "2146307a-7958-4fad-bd1f-ce2546eef5a9": {
-      "file_url": "https://test-scc-release-172-media.s3.amazonaws.com/ao8r2Vc/Kallisto_quant_on_data_2_Pseudoalignments.bam",
+      "file_url": "/data_fixtures/ao8r2Vc/sample.bam",
       "auxiliary_file_list": [
-        "https://test-scc-release-172-media.s3.amazonaws.com/Ke1iAak/Kallisto_quant_on_data_2_Pseudoalignments.bam.bai"
+        "/data_fixtures/Ke1iAak/sample.bam.bai"
       ],
       "node_solr_info": {
         "organism_Characteristics_generic_s": "Human",
@@ -35,5 +35,14 @@
         "sample_Characteristics_1390_699_s": "A402EV1 + A402EV2 + A402SMARCB11 + A402SMARCB12 + G402EV1 + G402EV2 + G402SMARCB11 + G402SMARCB12"
       }
     }
-  }
+  },
+  "parameters": [
+    {
+      "name": "Genome Build",
+      "description": "Refernce genome to use",
+      "value_type": "GENOME_BUILD",
+      "default_value": "hg19",
+      "value": "hg19"
+    }
+  ]
 }
