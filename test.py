@@ -43,6 +43,13 @@ class ContainerTest(unittest.TestCase):
             path='/options.json'
         )
 
+    def test_input_data_url_index_included(self):
+        self.assert_expected_response(
+            'good_bam',
+            '.bai',
+            path='/options.json'
+        )
+
     # Bad configurations:
 
     def test_missing_assembly(self):

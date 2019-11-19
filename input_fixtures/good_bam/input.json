@@ -1,0 +1,48 @@
+{
+  "node_info": {
+    "2146307a-7958-4fad-bd1f-ce2546eef5a9": {
+      "file_url": "/fake_path/fake.bam",
+      "auxiliary_file_list": [
+        "/fake_path/fake.bam.bai"
+      ],
+      "node_solr_info": {
+        "organism_Characteristics_generic_s": "Human",
+        "data_set_uuid": "6f218b65-42d3-4c69-a34b-9f8de0644d6a",
+        "django_ct": "data_set_manager.node",
+        "is_annotation": false,
+        "REFINERY_DOWNLOAD_URL_s": "https://fake-bucket.s3.amazonaws.com/fake.bam",
+        "id": "data_set_manager.node.255002",
+        "django_id": "255002",
+        "sample_Characteristics_generic_s": "A402EV1 + A402EV2 + A402SMARCB11 + A402SMARCB12 + G402EV1 + G402EV2 + G402SMARCB11 + G402SMARCB12",
+        "analysis_uuid": "5bad41e2-55c3-48e5-b45b-6264d576a948",
+        "assay_uuid": "0e4ed305-6b21-450f-a0e5-42febff21fbb",
+        "REFINERY_FILETYPE_1390_699_s": "Binary compressed SAM",
+        "REFINERY_DATAFILE_s": "fake.bam",
+        "REFINERY_SUBANALYSIS_1390_699_s": "0",
+        "type": "Derived Data File",
+        "REFINERY_TYPE_1390_699_s": "Derived Data File",
+        "organism_Characteristics_1390_699_s": "Human",
+        "filetype_Characteristics_generic_s": "Binary compressed SAM",
+        "study_uuid": "1f93a154-7aac-4863-b144-dbb601199fe7",
+        "subanalysis": 0,
+        "uuid": "2146307a-7958-4fad-bd1f-ce2546eef5a9",
+        "REFINERY_NAME_1390_699_s": "Fake",
+        "REFINERY_WORKFLOW_OUTPUT_1390_699_s": "pseudobam_output",
+        "name": "Fake",
+        "workflow_output": "pseudobam_output",
+        "REFINERY_ANALYSIS_UUID_1390_699_s": "Fake - Human - 2019/11/15 09:46:34 - Ilangold",
+        "file_uuid": "21e2e0e8-4405-47f8-a588-0d4a09fbe508",
+        "sample_Characteristics_1390_699_s": "A402EV1 + A402EV2 + A402SMARCB11 + A402SMARCB12 + G402EV1 + G402EV2 + G402SMARCB11 + G402SMARCB12"
+      }
+    }
+  },
+  "parameters": [
+    {
+      "name": "Genome Build",
+      "description": "Refernce genome to use",
+      "value_type": "GENOME_BUILD",
+      "default_value": "hg19",
+      "value": "hg19"
+    }
+  ]
+}
